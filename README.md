@@ -44,7 +44,7 @@ or
 $ rgen component some/path/to/Button.js
 ```
 
-...then it will create the component there. If you have a `components` subdirectory but you do _not_ want the component file to be created there, do this:
+...then it will create the component there. The directory has to exist, though. If you have a `components` subdirectory but you do _not_ want the component file to be created there, do this:
 
 ```
 $ rgen component ./Button
