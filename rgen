@@ -1,0 +1,61 @@
+#!/usr/bin/env bash
+
+COMPONENT_INPUT="$2"
+echo "COMPONENT_INPUT: $COMPONENT_INPUT"
+
+function error_no_args {
+  echo 'Try "rgen component Button" or "rgen component my_components/Button"'
+}
+
+function error_no_location {
+  echo "No component name or path specified."
+}
+
+if [ $# -eq 0 ]
+then
+  error_no_args
+elif [ "$1" == "component" ]
+then
+  if [ ! $2 ]
+  then
+    error_no_location
+  else
+    # FILE_FROM_STR is the input without the extension
+    # e.g. "app/components/Spaceship.js" -> "app/components/Spaceship"
+    [[ $COMPONENT_INPUT =~ \.?[^.]* ]] && FILE_FROM_STR="$BASH_REMATCH"
+    echo "FILE_FROM_STR: $FILE_FROM_STR"
+
+    # COMPONENT_NAME is the file name without the directory structure
+    # e.g. "app/components/Spaceship" -> "Spaceship"
+    [[ $FILE_FROM_STR =~ [^/]*$ ]] && COMPONENT_NAME="$BASH_REMATCH"
+    echo "COMPONENT_NAME: $COMPONENT_NAME"
+
+    # FULL_PATH is the full path with the js extension
+    # e.g. "app/components/Spaceship" -> "app/components/Spaceship.js"
+    # if [ -d "components" -a ! -h "components" ] && [ ! $FILE_FROM_STR =~ .*\/.* ]
+    if [ -d "components" ] && [[ "$FILE_FROM_STR" != *\/* ]]
+    then
+      # if components/ exists and the path does not specify a dir, put it there
+      FULL_PATH="components/$COMPONENT_NAME.js"
+      echo "FULL_PATH: $FULL_PATH"
+    else
+      # if a directory is specified or components/ does not exist, use it plain
+      FULL_PATH="$FILE_FROM_STR.js"
+      echo "FULL_PATH: $FULL_PATH"
+    fi
+
+    COMPONENT="import React from 'react';
+
+export default class $COMPONENT_NAME extends React.Component {
+  render() {
+    return (
+      <div></div>
+    );
+  }
+}"
+
+    echo "$COMPONENT" > $FULL_PATH && echo "successfully created component: $COMPONENT_NAME"
+  fi
+else
+  error_no_args
+fi
