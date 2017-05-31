@@ -23,9 +23,16 @@ $ rgen component Button
 or
 
 $ rgen component Button.js
+
+or
+
+$ rgen c Button
 ```
 
-As per convention, you should capitalize the component name. You don't have to, but keep in mind that `rgen` will not capitalize it for you. It doesn't matter if you add the .js extension or not. If you have a `components` subdirectory in the directory you're in, it will store the new file (`Button.js`) there. If you don't, it will be created wherever you run the command.
+- As per convention, you should capitalize the component name. You don't have to, but keep in mind that `rgen` will not capitalize it for you.
+- It doesn't matter if you add the .js extension or not.
+- If you have a `components` subdirectory in the directory you're in, it will store the new file (`Button.js`) there. If you don't, it will be created wherever you run the command.
+- You can use `c` as shorthand for `component`
 
 If you specify a path, like this:
 
