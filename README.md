@@ -58,12 +58,12 @@ $ rgen component ./Button.js
 
 ## Output
 
-Once you've created your component stub, find it in the `components` subdirectory, the root of your app, or wherever the hell you decided to put it. It will be named `<your component name>.js`, and inside it will look like this:
+Once you've created your component stub, find it in the `components` subdirectory, the root of your app, or wherever the hell you decided to put it. If you used one of the previous example commands, your file would be named `Button.js`, and inside it would look like this:
 
 ```js
 import React from 'react';
 
-export default class $COMPONENT_NAME extends React.Component {
+export default class Button extends React.Component {
   render() {
     return (
       <div></div>
